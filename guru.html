@@ -138,10 +138,40 @@
                     </div>
                     
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">Senarai Murid Anda (SK Agama Miri)</h2>
+                    
+                    <!-- Bahagian Carian dan Filter - BARU -->
+                    <div class="mb-4 bg-white p-4 rounded-lg shadow-sm flex flex-col md:flex-row md:items-center gap-4">
+                        <div class="flex-grow">
+                             <label for="search-student" class="sr-only">Cari Nama Murid</label>
+                            <input type="search" id="search-student" placeholder="Cari nama murid..." class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                        </div>
+                        <div class="flex-shrink-0">
+                            <label for="filter-class" class="sr-only">Tapis Kelas</label>
+                            <select id="filter-class" class="w-full md:w-auto px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+                                <option value="">Semua Kelas</option>
+                                <!-- Pilihan kelas akan ditambah oleh JS -->
+                            </select>
+                        </div>
+                         <div class="flex-shrink-0">
+                            <label for="filter-literasi" class="sr-only">Tapis Literasi</label>
+                            <select id="filter-literasi" class="w-full md:w-auto px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+                                <option value="">Semua Literasi</option>
+                                <option value="Menguasai">Menguasai</option>
+                                <option value="Belum Menguasai">Belum Menguasai</option>
+                            </select>
+                        </div>
+                         <div class="flex-shrink-0">
+                             <button id="reset-filters" class="w-full md:w-auto px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+                                 Reset
+                             </button>
+                        </div>
+                    </div>
+
                     <div class="bg-white shadow-md rounded-lg overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12">#</th> <!-- Lajur Nombor -->
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Murid</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kelas</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kemajuan Khatam</th> 
@@ -151,10 +181,10 @@
                             </thead>
                             <!-- Badan jadual akan diisi oleh JavaScript -->
                             <tbody id="student-table-body" class="bg-white divide-y divide-gray-200">
-                                <!-- Baris contoh akan dibuang, diganti oleh JS -->
+                                <!-- Baris akan ditambah oleh JS -->
                             </tbody>
                         </table>
-                         <!-- Kawalan Pagination - BARU -->
+                         <!-- Kawalan Pagination -->
                          <div id="pagination-controls" class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
                             <button id="prev-page" class="pagination-btn inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
                                 <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -647,7 +677,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- DATA CONTOH (Lebih banyak murid) ---
+            // --- DATA CONTOH (Lebih banyak murid & kelas berbeza) ---
              const allStudentData = [
                 { name: "Ali bin Abu", class: "6 Bestari", juzuk: 15, literasi: "Menguasai" },
                 { name: "Siti Nurhaliza binti Kamal", class: "5 Cemerlang", juzuk: 30, literasi: "Menguasai" },
@@ -661,27 +691,27 @@
                 { name: "Khairul bin Abdullah", class: "6 Bestari", juzuk: 12, literasi: "Belum Menguasai" },
                 { name: "Aminah binti Hassan", class: "5 Cemerlang", juzuk: 25, literasi: "Menguasai" },
                 { name: "Rahim bin Osman", class: "6 Bestari", juzuk: 7, literasi: "Belum Menguasai" },
-                 { name: "Student 13", class: "6 Bestari", juzuk: 11, literasi: "Menguasai" },
-                { name: "Student 14", class: "5 Cemerlang", juzuk: 14, literasi: "Menguasai" },
-                { name: "Student 15", class: "6 Bestari", juzuk: 16, literasi: "Belum Menguasai" },
-                { name: "Student 16", class: "5 Cemerlang", juzuk: 19, literasi: "Menguasai" },
-                { name: "Student 17", class: "6 Bestari", juzuk: 21, literasi: "Menguasai" },
-                { name: "Student 18", class: "5 Cemerlang", juzuk: 23, literasi: "Menguasai" },
-                { name: "Student 19", class: "6 Bestari", juzuk: 24, literasi: "Belum Menguasai" },
-                { name: "Student 20", class: "5 Cemerlang", juzuk: 26, literasi: "Menguasai" },
-                { name: "Student 21", class: "6 Bestari", juzuk: 27, literasi: "Menguasai" },
-                { name: "Student 22", class: "5 Cemerlang", juzuk: 29, literasi: "Menguasai" },
-                { name: "Student 23", class: "6 Bestari", juzuk: 1, literasi: "Belum Menguasai" },
-                { name: "Student 24", class: "5 Cemerlang", juzuk: 2, literasi: "Belum Menguasai" },
-                { name: "Student 25", class: "6 Bestari", juzuk: 3, literasi: "Belum Menguasai" },
-                { name: "Student 26", class: "5 Cemerlang", juzuk: 4, literasi: "Menguasai" },
-                { name: "Student 27", class: "6 Bestari", juzuk: 6, literasi: "Menguasai" },
-                { name: "Student 28", class: "5 Cemerlang", juzuk: 8, literasi: "Belum Menguasai" },
-                { name: "Student 29", class: "6 Bestari", juzuk: 9, literasi: "Menguasai" },
-                { name: "Student 30", class: "5 Cemerlang", juzuk: 13, literasi: "Menguasai" },
-                { name: "Student 31", class: "6 Bestari", juzuk: 17, literasi: "Menguasai" },
-                { name: "Student 32", class: "5 Cemerlang", juzuk: 30, literasi: "Menguasai" },
-                { name: "Student 33", class: "6 Bestari", juzuk: 30, literasi: "Menguasai" },
+                 { name: "Murid Contoh 13", class: "4 Gigih", juzuk: 3, literasi: "Belum Menguasai" }, // Kelas baru
+                 { name: "Student 14", class: "5 Cemerlang", juzuk: 14, literasi: "Menguasai" },
+                 { name: "Student 15", class: "6 Bestari", juzuk: 16, literasi: "Belum Menguasai" },
+                 { name: "Student 16", class: "5 Cemerlang", juzuk: 19, literasi: "Menguasai" },
+                 { name: "Student 17", class: "6 Bestari", juzuk: 21, literasi: "Menguasai" },
+                 { name: "Student 18", class: "5 Cemerlang", juzuk: 23, literasi: "Menguasai" },
+                 { name: "Student 19", class: "4 Gigih", juzuk: 2, literasi: "Belum Menguasai" }, // Kelas baru
+                 { name: "Student 20", class: "5 Cemerlang", juzuk: 26, literasi: "Menguasai" },
+                 { name: "Student 21", class: "6 Bestari", juzuk: 27, literasi: "Menguasai" },
+                 { name: "Student 22", class: "5 Cemerlang", juzuk: 29, literasi: "Menguasai" },
+                 { name: "Student 23", class: "6 Bestari", juzuk: 1, literasi: "Belum Menguasai" },
+                 { name: "Student 24", class: "5 Cemerlang", juzuk: 2, literasi: "Belum Menguasai" },
+                 { name: "Student 25", class: "6 Bestari", juzuk: 3, literasi: "Belum Menguasai" },
+                 { name: "Student 26", class: "4 Gigih", juzuk: 0, literasi: "Belum Menguasai" }, // Kelas baru
+                 { name: "Student 27", class: "6 Bestari", juzuk: 6, literasi: "Menguasai" },
+                 { name: "Student 28", class: "5 Cemerlang", juzuk: 8, literasi: "Belum Menguasai" },
+                 { name: "Student 29", class: "6 Bestari", juzuk: 9, literasi: "Menguasai" },
+                 { name: "Student 30", class: "5 Cemerlang", juzuk: 13, literasi: "Menguasai" },
+                 { name: "Student 31", class: "6 Bestari", juzuk: 17, literasi: "Menguasai" },
+                 { name: "Student 32", class: "5 Cemerlang", juzuk: 30, literasi: "Menguasai" },
+                 { name: "Student 33", class: "4 Gigih", juzuk: 1, literasi: "Belum Menguasai" }, // Kelas baru
             ];
 
             const navLinks = document.querySelectorAll('.nav-link');
@@ -695,34 +725,73 @@
             const viewKPI = document.getElementById('view-kpi'); 
             const viewPrestasiKelas = document.getElementById('view-prestasi-kelas'); 
 
-            // --- Logik Pagination ---
+            // --- Logik Carian & Filter ---
+            const searchInput = document.getElementById('search-student');
+            const classFilter = document.getElementById('filter-class');
+            const literasiFilter = document.getElementById('filter-literasi');
+            const resetButton = document.getElementById('reset-filters');
+
+            // Fungsi untuk mengisi pilihan filter kelas secara dinamik
+            function populateClassFilter() {
+                const classes = [...new Set(allStudentData.map(student => student.class))].sort();
+                classes.forEach(cls => {
+                    const option = document.createElement('option');
+                    option.value = cls;
+                    option.textContent = cls;
+                    classFilter.appendChild(option);
+                });
+            }
+
+             // Fungsi untuk menapis data
+            function filterAndSearchData() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedClass = classFilter.value;
+                const selectedLiterasi = literasiFilter.value;
+
+                let filteredData = allStudentData.filter(student => {
+                    const nameMatch = student.name.toLowerCase().includes(searchTerm);
+                    const classMatch = !selectedClass || student.class === selectedClass;
+                    const literasiMatch = !selectedLiterasi || student.literasi === selectedLiterasi;
+                    return nameMatch && classMatch && literasiMatch;
+                });
+                
+                // Panggil semula setupPagination dan displayStudents dengan data yang ditapis
+                setupPagination(filteredData); 
+                displayStudents(1, filteredData); // Mula dari halaman 1
+                 updateInfographics(filteredData); // Kemaskini infografik berdasarkan data ditapis
+            }
+
+            // --- Logik Pagination (DIPINDAHKAN KE SINI) ---
             const studentTableBody = document.getElementById('student-table-body');
             const prevPageButton = document.getElementById('prev-page');
             const nextPageButton = document.getElementById('next-page');
             const pageInfoSpan = document.getElementById('page-info');
-            const rowsPerPage = 10; // Tetapkan bilangan murid setiap halaman
+            const rowsPerPage = 10; 
             let currentPage = 1;
-            let totalPages = Math.ceil(allStudentData.length / rowsPerPage);
+            let currentFilteredData = allStudentData; // Simpan data yang sedang dipaparkan
+            let totalPages = Math.ceil(currentFilteredData.length / rowsPerPage);
 
-            // Fungsi untuk memaparkan murid berdasarkan halaman
-            function displayStudents(page) {
+            // Fungsi displayStudents diubahsuai untuk menerima data
+            function displayStudents(page, dataToDisplay = currentFilteredData) {
                 currentPage = page;
-                studentTableBody.innerHTML = ''; // Kosongkan jadual sedia ada
+                currentFilteredData = dataToDisplay; // Kemaskini data semasa
+                totalPages = Math.ceil(currentFilteredData.length / rowsPerPage); // Kira semula totalPages
+                
+                studentTableBody.innerHTML = ''; 
                 const start = (currentPage - 1) * rowsPerPage;
                 const end = start + rowsPerPage;
-                const paginatedStudents = allStudentData.slice(start, end);
+                const paginatedStudents = currentFilteredData.slice(start, end);
 
-                paginatedStudents.forEach(student => {
+                paginatedStudents.forEach((student, index) => {
                     const row = document.createElement('tr');
+                    const rowNum = start + index + 1; // Kira nombor baris
 
-                    // Kelas untuk status literasi
-                    const literasiClass = student.literasi === "Menguasai" 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800';
+                    const literasiClass = student.literasi === "Menguasai" ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
                     const khatamStatus = student.juzuk === 30 ? ' (Khatam)' : '';
                     const khatamColor = student.juzuk < 15 ? 'text-orange-600' : 'text-emerald-700';
 
                     row.innerHTML = `
+                        <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">${rowNum}</td> <!-- Nombor Baris -->
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.name}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.class}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -746,41 +815,48 @@
                 });
 
                 // Kemaskini info halaman
-                pageInfoSpan.textContent = `Halaman ${currentPage} dari ${totalPages}`;
+                 pageInfoSpan.textContent = totalPages > 0 ? `Halaman ${currentPage} dari ${totalPages}` : 'Tiada data';
 
                 // Dayakan/Nyahdayakan butang
                 prevPageButton.disabled = currentPage === 1;
-                nextPageButton.disabled = currentPage === totalPages;
+                nextPageButton.disabled = currentPage === totalPages || totalPages === 0;
 
-                 // PENTING: Tambah semula event listener untuk butang "Lihat Laporan Penuh"
                 addReportButtonListeners(); 
             }
 
-            // Fungsi untuk menyediakan pagination
-            function setupPagination() {
-                 totalPages = Math.ceil(allStudentData.length / rowsPerPage); // Kira semula jika data berubah
-                
-                prevPageButton.addEventListener('click', () => {
-                    if (currentPage > 1) {
-                        displayStudents(currentPage - 1);
-                    }
-                });
+            // Fungsi setupPagination diubahsuai untuk menerima data
+            function setupPagination(dataToPaginate = allStudentData) {
+                 currentFilteredData = dataToPaginate; // Kemaskini data semasa
+                 totalPages = Math.ceil(currentFilteredData.length / rowsPerPage); // Kira semula
+                 currentPage = 1; // Reset ke halaman pertama setiap kali filter berubah
+                 
+                 // Listener hanya perlu ditambah sekali
+                 // (Pastikan tidak menambah listener berganda)
+                 if (!prevPageButton.dataset.listenerAttached) {
+                     prevPageButton.addEventListener('click', () => {
+                        if (currentPage > 1) {
+                            displayStudents(currentPage - 1, currentFilteredData);
+                        }
+                     });
+                     prevPageButton.dataset.listenerAttached = true; // Tandakan listener ditambah
+                 }
+                  if (!nextPageButton.dataset.listenerAttached) {
+                     nextPageButton.addEventListener('click', () => {
+                        if (currentPage < totalPages) {
+                            displayStudents(currentPage + 1, currentFilteredData);
+                        }
+                    });
+                     nextPageButton.dataset.listenerAttached = true; // Tandakan listener ditambah
+                 }
 
-                nextPageButton.addEventListener('click', () => {
-                    if (currentPage < totalPages) {
-                        displayStudents(currentPage + 1);
-                    }
-                });
-
-                 // Papar halaman pertama semasa muat
-                displayStudents(1); 
+                displayStudents(1, currentFilteredData); // Papar halaman pertama selepas setup
             }
 
-            // Fungsi untuk mengira dan memaparkan analisis infografik
-            function updateInfographics() {
-                const totalStudents = allStudentData.length;
-                const khatamStudents = allStudentData.filter(s => s.juzuk === 30).length;
-                const literasiMenguasai = allStudentData.filter(s => s.literasi === "Menguasai").length;
+            // Fungsi untuk mengira dan memaparkan analisis infografik (diubahsuai terima data)
+            function updateInfographics(dataForStats = allStudentData) {
+                const totalStudents = dataForStats.length;
+                const khatamStudents = dataForStats.filter(s => s.juzuk === 30).length;
+                const literasiMenguasai = dataForStats.filter(s => s.literasi === "Menguasai").length;
                 const literasiPercentage = totalStudents > 0 ? Math.round((literasiMenguasai / totalStudents) * 100) : 0;
 
                 document.getElementById('total-students-infographic').textContent = totalStudents;
@@ -788,6 +864,17 @@
                 document.getElementById('literasi-percentage-infographic').textContent = `${literasiPercentage}%`;
                 document.getElementById('literasi-count-infographic').textContent = `(${literasiMenguasai} / ${totalStudents} Murid Menguasai)`;
             }
+
+             // --- Tambah Event Listeners untuk Carian & Filter ---
+            searchInput.addEventListener('input', filterAndSearchData);
+            classFilter.addEventListener('change', filterAndSearchData);
+            literasiFilter.addEventListener('change', filterAndSearchData);
+            resetButton.addEventListener('click', () => {
+                searchInput.value = '';
+                classFilter.value = '';
+                literasiFilter.value = '';
+                filterAndSearchData(); // Apply reset
+            });
 
             // --- Fungsi Tukar Pandangan Utama ---
             function switchView(viewId) {
@@ -824,18 +911,17 @@
 
             // Fungsi untuk menambah event listener pada butang laporan (perlu dipanggil setiap kali jadual dikemaskini)
             function addReportButtonListeners() {
-                 const reportButtons = document.querySelectorAll('.js-view-report');
-                 reportButtons.forEach(button => {
-                     // Buang listener lama jika ada (untuk elak berganda)
-                    button.replaceWith(button.cloneNode(true));
-                });
-                 // Tambah listener baru
-                 document.querySelectorAll('.js-view-report').forEach(button => {
-                    button.addEventListener('click', (e) => {
+                 const currentButtons = document.querySelectorAll('.js-view-report');
+                  currentButtons.forEach(button => {
+                     // Clone and replace to ensure only one listener is attached
+                     const newButton = button.cloneNode(true);
+                     button.parentNode.replaceChild(newButton, button);
+
+                     newButton.addEventListener('click', (e) => {
                         e.preventDefault();
-                        const studentName = button.getAttribute('data-student-name');
-                        const juzuk = parseInt(button.getAttribute('data-juzuk'), 10);
-                        const literasi = button.getAttribute('data-literasi'); 
+                        const studentName = newButton.getAttribute('data-student-name');
+                        const juzuk = parseInt(newButton.getAttribute('data-juzuk'), 10);
+                        const literasi = newButton.getAttribute('data-literasi'); 
                         const percentage = Math.round((juzuk / 30) * 100);
                         
                         // Kemaskini paparan laporan individu
@@ -882,7 +968,8 @@
             }
 
             // --- Panggilan Fungsi Semasa Muat ---
-            updateInfographics(); // Kira infografik berdasarkan data penuh
+            populateClassFilter(); // Isi filter kelas
+            updateInfographics(); // Kira infografik berdasarkan data penuh awal
             setupPagination(); // Sediakan pagination dan papar halaman pertama
             switchView('view-pelaporan'); // Pastikan pandangan pelaporan aktif
             document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active'); // Pastikan pautan sidebar aktif
