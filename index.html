@@ -35,7 +35,8 @@
                 </div>
                 <!-- Butang Log Masuk -->
                 <div class="hidden md:block">
-                    <a href="#" class="bg-emerald-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm hover:bg-emerald-700 transition-all duration-300">Log Masuk</a>
+                    <!-- Menambah kelas 'js-login-button' untuk JavaScript -->
+                    <a href="#" class="js-login-button bg-emerald-600 text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm hover:bg-emerald-700 transition-all duration-300">Log Masuk</a>
                 </div>
                 <!-- Burger Menu (Mobile) -->
                 <div class="md:hidden">
@@ -65,7 +66,8 @@
                             <a href="#ciri" class="bg-emerald-600 text-white px-6 py-3 rounded-md text-base font-medium shadow-md hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105">
                                 Terokai Ciri-ciri
                             </a>
-                            <a href="#" class="bg-white text-emerald-600 border border-emerald-600 px-6 py-3 rounded-md text-base font-medium shadow-sm hover:bg-emerald-50 transition-all duration-300">
+                            <!-- Menambah kelas 'js-login-button' untuk JavaScript -->
+                            <a href="#" class="js-login-button bg-white text-emerald-600 border border-emerald-600 px-6 py-3 rounded-md text-base font-medium shadow-sm hover:bg-emerald-50 transition-all duration-300">
                                 Log Masuk
                             </a>
                         </div>
@@ -239,6 +241,73 @@
 
     </main>
 
+    <!-- Modal Log Masuk -->
+    <div id="loginModal" class="fixed inset-0 bg-gray-600 bg-opacity-75 backdrop-blur-sm z-50 flex justify-center items-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md">
+            
+            <!-- Bahagian Log Masuk -->
+            <div id="loginView">
+                <div class="flex justify-between items-center p-6 border-b border-gray-200">
+                    <h3 class="text-2xl font-bold text-gray-900">Log Masuk</h3>
+                    <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <form id="loginForm" class="p-8 space-y-6">
+                    <div>
+                        <label for="loginEmail" class="block text-sm font-medium text-gray-700">Emel</label>
+                        <input type="email" id="loginEmail" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label for="loginPassword" class="block text-sm font-medium text-gray-700">Kata Laluan</label>
+                        <input type="password" id="loginPassword" name="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 text-white py-2 px-4 rounded-md font-medium hover:bg-emerald-700 transition-colors duration-300">
+                        Log Masuk
+                    </button>
+                    <div class="text-center">
+                        <a href="#" id="showRegister" class="text-sm text-emerald-600 hover:text-emerald-500">
+                            Belum ada ahli? Daftar di sini.
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Bahagian Pendaftaran (Tersembunyi) -->
+            <div id="registerView" class="hidden">
+                <div class="flex justify-between items-center p-6 border-b border-gray-200">
+                    <h3 class="text-2xl font-bold text-gray-900">Daftar Akaun Baru</h3>
+                    <button id="closeModalRegister" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <form id="registerForm" class="p-8 space-y-4">
+                    <div>
+                        <label for="registerName" class="block text-sm font-medium text-gray-700">Nama Penuh</label>
+                        <input type="text" id="registerName" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label for="registerEmail" class="block text-sm font-medium text-gray-700">Emel</label>
+                        <input type="email" id="registerEmail" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label for="registerPassword" class="block text-sm font-medium text-gray-700">Kata Laluan</Lama>
+                        <input type="password" id="registerPassword" name="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 text-white py-2 px-4 rounded-md font-medium hover:bg-emerald-700 transition-colors duration-300">
+                        Daftar
+                    </button>
+                    <div class="text-center">
+                        <a href="#" id="showLogin" class="text-sm text-emerald-600 hover:text-emerald-500">
+                            Sudah ada akaun? Log masuk.
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Bahagian Footer -->
     <footer class="bg-emerald-900 text-emerald-100">
         <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
@@ -248,7 +317,91 @@
         </div>
     </footer>
 
+    <!-- Skrip Modal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginModal = document.getElementById('loginModal');
+            const loginView = document.getElementById('loginView');
+            const registerView = document.getElementById('registerView');
+            
+            const openLoginButtons = document.querySelectorAll('.js-login-button');
+            const closeModalButtons = document.querySelectorAll('#closeModal, #closeModalRegister');
+            
+            const showRegisterLink = document.getElementById('showRegister');
+            const showLoginLink = document.getElementById('showLogin');
+            
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+
+            // Fungsi untuk membuka Modal
+            const openModal = (e) => {
+                e.preventDefault();
+                loginModal.classList.remove('hidden');
+                loginView.classList.remove('hidden'); // Sentiasa tunjuk log masuk dahulu
+                registerView.classList.add('hidden');
+            };
+
+            // Fungsi untuk menutup Modal
+            const closeModal = () => {
+                loginModal.classList.add('hidden');
+            };
+            
+            // Pasang event listener pada semua butang log masuk
+            openLoginButtons.forEach(button => {
+                button.addEventListener('click', openModal);
+            });
+
+            // Pasang event listener pada butang tutup (X)
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', closeModal);
+            });
+
+            // Tutup modal bila klik di luar kawasan modal
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    closeModal();
+                }
+            });
+
+            // Tukar ke view Pendaftaran
+            showRegisterLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginView.classList.add('hidden');
+                registerView.classList.remove('hidden');
+            });
+
+            // Tukar ke view Log Masuk
+            showLoginLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerView.classList.add('hidden');
+                loginView.classList.remove('hidden');
+            });
+
+            // Handle Borang Log Masuk
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Arahkan ke admin.html seperti yang diminta
+                window.location.href = 'admin.html';
+            });
+
+            // Handle Borang Pendaftaran
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Untuk masa ini, hanya tunjukkan mesej
+                alert('Pendaftaran berjaya! Sila log masuk.');
+                // Tukar semula ke paparan log masuk
+                registerView.classList.add('hidden');
+                loginView.classList.remove('hidden');
+            });
+
+            // Handle Burger Menu (Mobile) - Tambahan
+            const mobileMenuButton = document.querySelector('.md\\:hidden button');
+            mobileMenuButton.addEventListener('click', () => {
+                // Anda boleh menambah logik untuk membuka menu navigasi mudah alih di sini
+                console.log('Mobile menu clicked');
+            });
+        });
+    </script>
 </body>
 </html>
-
 
