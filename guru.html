@@ -38,10 +38,15 @@
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 00-4-4H3V7h2a4 4 0 004-4v-2M9 17h6M9 17H5M15 17v-2a4 4 0 014-4h2V7h-2a4 4 0 01-4-4v-2M15 17h-6M15 17H19"></path></svg>
                     Pelaporan Murid
                 </a>
-                <!-- Pautan Baru: Perancangan Aktiviti -->
+                <!-- Pautan: Perancangan Aktiviti -->
                 <a href="#perancangan" data-view="view-perancangan" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md text-emerald-100 hover:bg-emerald-700">
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     Perancangan Aktiviti
+                </a>
+                <!-- Pautan Baru: Sasaran KPI -->
+                <a href="#kpi" data-view="view-kpi" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md text-emerald-100 hover:bg-emerald-700">
+                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                    Sasaran KPI
                 </a>
             </nav>
             <div class="mt-auto px-6 py-4 border-t border-emerald-700">
@@ -410,6 +415,51 @@
                     </div>
                 </div>
 
+                <!-- Pandangan 4: Sasaran KPI -->
+                <div id="view-kpi" class="teacher-view">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Sasaran KPI JPN & PPD</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6"> 
+                        
+                        <!-- Kad KPI Gabungan: Khatam Al-Quran - Versi Ringkas -->
+                        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2 lg:col-span-1"> 
+                            <h3 class="text-lg font-semibold text-gray-800">KPI: Khatam Al-Quran</h3>
+                            <p class="text-sm text-gray-500 mb-4">Peratus murid khatam Al-Quran sebelum tamat Tahun 6.</p>
+                            
+                            <!-- Pencapaian Semasa -->
+                            <div class="mb-4">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-base font-medium text-emerald-700">Pencapaian Semasa (SK Agama Miri)</span>
+                                    <span class="text-2xl font-bold text-emerald-700">80%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-4 relative">
+                                    <!-- Bar Kemajuan -->
+                                    <div class="bg-emerald-500 h-4 rounded-full" style="width: 80%;"></div>
+                                    <!-- Garisan Sasaran PPD -->
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 94.20%;"></div>
+                                    <!-- Garisan Sasaran JPN -->
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.25%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Sasaran -->
+                            <div class="flex justify-between text-sm mt-4 pt-4 border-t border-gray-200">
+                                <div class="text-center">
+                                    <p class="font-semibold text-blue-600">Sasaran PPD</p>
+                                    <p class="text-lg font-bold text-blue-600">94.20%</p>
+                                    <p class="text-xs text-orange-600">(Perlu +14.20%)</p>
+                                </div>
+                                <div class="text-center">
+                                    <p class="font-semibold text-red-600">Sasaran JPN</p>
+                                    <p class="text-lg font-bold text-red-600">94.25%</p>
+                                    <p class="text-xs text-red-600">(Perlu +14.25%)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
@@ -424,6 +474,7 @@
             const viewLaporanIndividu = document.getElementById('view-laporan-individu');
             // Pandangan baru ditambah
             const viewPerancangan = document.getElementById('view-perancangan'); 
+            const viewKPI = document.getElementById('view-kpi'); // Pembolehubah baru ditambah
 
             // Fungsi untuk menukar pandangan utama (Sidebar)
             function switchView(viewId) {
@@ -502,11 +553,13 @@
             });
 
             // Event listener untuk butang "Kembali"
-            backButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                switchView('view-pelaporan'); // Kembali ke senarai pelaporan
-                viewTitle.textContent = "Pelaporan Murid"; // Kemaskini tajuk header
-            });
+            if (backButton) { // Tambah semakan jika butang wujud
+                backButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchView('view-pelaporan'); // Kembali ke senarai pelaporan
+                    viewTitle.textContent = "Pelaporan Murid"; // Kemaskini tajuk header
+                });
+            }
         });
     </script>
 
