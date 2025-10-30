@@ -33,6 +33,11 @@
          .nav-link:not(.active):hover {
             background-color: #047857; /* emerald-700 */
         }
+        /* Styling untuk butang pagination yang tidak aktif */
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -59,10 +64,10 @@
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
                     Sasaran KPI Sekolah
                 </a>
-                <!-- Pautan Baru: Prestasi Kelas -->
+                <!-- Pautan: Prestasi Kelas -> Prestasi Ikut Tahun -->
                 <a href="#prestasi-kelas" data-view="view-prestasi-kelas" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md">
                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    Prestasi Kelas
+                    Prestasi Ikut Tahun 
                 </a>
             </nav>
             <div class="mt-auto px-6 py-4 border-t border-emerald-700">
@@ -105,7 +110,7 @@
                                 </div>
                                 <div>
                                     <div class="text-sm font-medium text-gray-500">Jumlah Murid</div>
-                                    <div class="text-2xl font-bold text-gray-900">3</div>
+                                    <div id="total-students-infographic" class="text-2xl font-bold text-gray-900">0</div> <!-- Akan dikemaskini oleh JS -->
                                 </div>
                             </div>
                             <!-- Kad 2: Murid Khatam -->
@@ -115,18 +120,18 @@
                                 </div>
                                 <div>
                                     <div class="text-sm font-medium text-gray-500">Murid Khatam</div>
-                                    <div class="text-2xl font-bold text-gray-900">1</div>
+                                    <div id="khatam-students-infographic" class="text-2xl font-bold text-gray-900">0</div> <!-- Akan dikemaskini oleh JS -->
                                 </div>
                             </div>
-                            <!-- Kad 3: Purata Kemajuan -->
+                            <!-- Kad 3: Purata Kemajuan Literasi -->
                             <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
-                                <div class="flex-shrink-0 bg-orange-100 text-orange-600 rounded-full p-3">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                                <div class="flex-shrink-0 bg-purple-100 text-purple-600 rounded-full p-3">
+                                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.042A8.967 8.967 0 001.5 10.5c0 7.142 6.471 12.427 12.857 14.857a23.945 23.945 0 00-1.714-3.428 3 3 0 01-3.428-3.428 23.945 23.945 0 00-3.428-1.714c2.43-6.386 7.714-12.857 14.857-12.857h.042A8.967 8.967 0 0012 6.042z"></path></svg>
                                 </div>
                                 <div>
-                                    <div class="text-sm font-medium text-gray-500">Purata Kemajuan</div>
-                                    <div class="text-2xl font-bold text-gray-900">56%</div>
-                                    <div class="text-xs text-gray-500">(Purata 17 / 30 Juzuk)</div>
+                                    <div class="text-sm font-medium text-gray-500">Purata Literasi</div>
+                                    <div id="literasi-percentage-infographic" class="text-2xl font-bold text-gray-900">0%</div> <!-- Akan dikemaskini oleh JS -->
+                                    <div id="literasi-count-infographic" class="text-xs text-gray-500">(0 / 0 Murid Menguasai)</div> <!-- Akan dikemaskini oleh JS -->
                                 </div>
                             </div>
                         </div>
@@ -139,53 +144,28 @@
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Murid</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kelas</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kemajuan Al-Quran</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kemajuan Khatam</th> 
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Literasi Quran</th> 
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tindakan</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <!-- Baris Contoh 1: Ali -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ali bin Abu</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">6 Bestari</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <span class="font-medium text-emerald-700">15 / 30 Juzuk</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <!-- Butang ini akan memaparkan 'view-laporan-individu' -->
-                                        <a href="#" class="js-view-report text-emerald-600 hover:text-emerald-900" data-student-name="Ali bin Abu" data-juzuk="15">
-                                            Lihat Laporan Penuh
-                                        </a>
-                                    </td>
-                                </tr>
-                                <!-- Baris Contoh 2: Siti -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Siti Nurhaliza binti Kamal</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 Cemerlang</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <span class="font-medium text-emerald-700">30 / 30 Juzuk</span> (Khatam)
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="#" class="js-view-report text-emerald-600 hover:text-emerald-900" data-student-name="Siti Nurhaliza binti Kamal" data-juzuk="30">
-                                            Lihat Laporan Penuh
-                                        </a>
-                                    </td>
-                                </tr>
-                                 <!-- Baris Contoh 3: Mior -->
-                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Mior bin Ahmad</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">6 Bestari</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <span class="font-medium text-orange-600">5 / 30 Juzuk</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="#" class="js-view-report text-emerald-600 hover:text-emerald-900" data-student-name="Mior bin Ahmad" data-juzuk="5">
-                                            Lihat Laporan Penuh
-                                        </a>
-                                    </td>
-                                </tr>
+                            <!-- Badan jadual akan diisi oleh JavaScript -->
+                            <tbody id="student-table-body" class="bg-white divide-y divide-gray-200">
+                                <!-- Baris contoh akan dibuang, diganti oleh JS -->
                             </tbody>
                         </table>
+                         <!-- Kawalan Pagination - BARU -->
+                         <div id="pagination-controls" class="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+                            <button id="prev-page" class="pagination-btn inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                Sebelum
+                            </button>
+                            <span id="page-info" class="text-sm text-gray-700">Halaman 1 dari 1</span>
+                            <button id="next-page" class="pagination-btn inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                                Seterusnya
+                                <svg class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -329,27 +309,36 @@
                     
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <!-- Kolum Kiri: Kad Pencapaian -->
-                        <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow-md self-start">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Kemajuan Al-Quran</h3>
-                            
-                            <div class="flex items-center justify-center space-x-4">
-                                <div class="text-emerald-600">
-                                    <!-- Ikon yang sesuai -->
-                                    <svg class="w-16 h-16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 001.5 10.5c0 7.142 6.471 12.427 12.857 14.857a23.945 23.945 0 00-1.714-3.428 3 3 0 01-3.428-3.428 23.945 23.945 0 00-3.428-1.714c2.43-6.386 7.714-12.857 14.857-12.857h.042A8.967 8.967 0 0012 6.042zM12 6.042V2.25m0 3.792a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V7.5a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100 1.5.75.75 0 000-1.5z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 19.5A.75.75 0 0115.75 15a.75.75 0 011.5 0v3.75a.75.75 0 01-.75.75zM19.5 16.5A.75.75 0 0115 15.75a.75.75 0 010-1.5h3.75a.75.75 0 01.75.75zM21.75 12a.75.75 0 01-3.75-.75.75.75 0 010-1.5H21a.75.75 0 01.75.75z" />
-                                    </svg>
+                        <div class="lg:col-span-1 self-start space-y-6"> 
+                            <!-- Kad Kemajuan Khatam -->
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">Kemajuan Khatam Al-Quran</h3>
+                                
+                                <div class="flex items-center justify-center space-x-4">
+                                    <div class="text-emerald-600">
+                                        <svg class="w-16 h-16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 001.5 10.5c0 7.142 6.471 12.427 12.857 14.857a23.945 23.945 0 00-1.714-3.428 3 3 0 01-3.428-3.428 23.945 23.945 0 00-3.428-1.714c2.43-6.386 7.714-12.857 14.857-12.857h.042A8.967 8.967 0 0012 6.042zM12 6.042V2.25m0 3.792a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V7.5a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100 1.5.75.75 0 000-1.5z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 19.5A.75.75 0 0115.75 15a.75.75 0 011.5 0v3.75a.75.75 0 01-.75.75zM19.5 16.5A.75.75 0 0115 15.75a.75.75 0 010-1.5h3.75a.75.75 0 01.75.75zM21.75 12a.75.75 0 01-3.75-.75.75.75 0 010-1.5H21a.75.75 0 01.75.75z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div id="student-percentage" class="text-5xl font-bold text-emerald-600">50%</div>
+                                        <div id="student-juzuk-text" class="text-sm text-gray-600 font-medium">15 / 30 Juzuk Selesai</div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <!-- Peratus -->
-                                    <div id="student-percentage" class="text-5xl font-bold text-emerald-600">50%</div>
-                                    <div id="student-juzuk-text" class="text-sm text-gray-600 font-medium">15 / 30 Juzuk Selesai</div>
+                                <div class="w-full bg-gray-200 rounded-full h-4 mt-6">
+                                    <div id="student-progress-bar" class="bg-emerald-600 h-4 rounded-full" style="width: 50%;"></div>
                                 </div>
                             </div>
-                            
-                            <!-- Progress Bar -->
-                            <div class="w-full bg-gray-200 rounded-full h-4 mt-6">
-                                <div id="student-progress-bar" class="bg-emerald-600 h-4 rounded-full" style="width: 50%;"></div>
+
+                            <!-- Kad Literasi Al-Quran -->
+                             <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Penguasaan Literasi Al-Quran</h3>
+                                <div id="student-literasi-status" class="text-2xl font-bold text-green-600">
+                                    Menguasai 
+                                </div>
+                                <svg id="literasi-icon-menguasai" class="w-12 h-12 mx-auto mt-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg id="literasi-icon-belum" class="w-12 h-12 mx-auto mt-2 text-red-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
                         </div>
                         
@@ -359,7 +348,7 @@
                             <div class="bg-white p-6 rounded-lg shadow-md">
                                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Tambah Laporan Bulan Ini</h3>
                                 <form class="space-y-4">
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4"> 
                                         <div>
                                             <label for="selectBulan" class="block text-sm font-medium text-gray-700">Bulan</label>
                                             <select id="selectBulan" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
@@ -378,8 +367,15 @@
                                             </select>
                                         </div>
                                         <div>
-                                            <label for="juzukBulanan" class="block text-sm font-medium text-gray-700">Juzuk Selesai (Terkini)</label>
+                                            <label for="juzukBulanan" class="block text-sm font-medium text-gray-700">Juzuk Selesai</label>
                                             <input type="number" id="juzukBulanan" min="0" max="30" value="15" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                                        </div>
+                                         <div> 
+                                            <label for="literasiBulanan" class="block text-sm font-medium text-gray-700">Literasi Quran</label>
+                                            <select id="literasiBulanan" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+                                                <option>Menguasai</option>
+                                                <option>Belum Menguasai</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div>
@@ -402,7 +398,8 @@
                                         <thead class="bg-gray-50">
                                             <tr>
                                                 <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bulan</th>
-                                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Juzuk Selesai</th>
+                                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Juzuk</th> 
+                                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Literasi</th> 
                                                 <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Catatan</th>
                                             </tr>
                                         </thead>
@@ -411,16 +408,19 @@
                                             <tr class="hover:bg-gray-50">
                                                 <td class="px-4 py-2 text-sm text-gray-700">September</td>
                                                 <td class="px-4 py-2 text-sm text-gray-700">12</td>
+                                                <td class="px-4 py-2 text-sm text-green-700">Menguasai</td>
                                                 <td class="px-4 py-2 text-sm text-gray-700">Baik, perlu lancarkan hafazan.</td>
                                             </tr>
                                             <tr class="hover:bg-gray-50">
                                                 <td class="px-4 py-2 text-sm text-gray-700">Ogos</td>
                                                 <td class="px-4 py-2 text-sm text-gray-700">8</td>
+                                                 <td class="px-4 py-2 text-sm text-green-700">Menguasai</td>
                                                 <td class="px-4 py-2 text-sm text-gray-700">Mula menghafal.</td>
                                             </tr>
                                             <tr class="hover:bg-gray-50">
                                                 <td class="px-4 py-2 text-sm text-gray-700">Julai</td>
                                                 <td class="px-4 py-2 text-sm text-gray-700">4</td>
+                                                <td class="px-4 py-2 text-sm text-red-700">Belum Menguasai</td>
                                                 <td class="px-4 py-2 text-sm text-gray-700">Masih kenal huruf.</td>
                                             </tr>
                                         </tbody>
@@ -435,7 +435,6 @@
                 <div id="view-kpi" class="teacher-view">
                     <h2 class="text-xl font-semibold text-gray-800 mb-6">Sasaran KPI Kebangsaan & Negeri 2025</h2>
                     
-                    <!-- Grid diubah kepada 1 lajur -->
                     <div class="grid grid-cols-1 gap-6"> 
                         
                         <!-- Kad KPI 1: Khatam Al-Quran -->
@@ -443,21 +442,17 @@
                             <h3 class="text-lg font-semibold text-gray-800">Model Khatam Al-Quran Murid Tahun 6</h3>
                             <p class="text-sm text-gray-500 mb-4">Peratus murid khatam Al-Quran sebelum tamat Tahun 6.</p>
                             
-                            <!-- Pencapaian Semasa -->
                             <div class="mb-4">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-base font-medium text-emerald-700">Pencapaian Semasa (SK Agama Miri)</span>
                                     <span class="text-2xl font-bold text-emerald-700">80%</span>
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-4 relative">
-                                    <!-- Bar Kemajuan -->
                                     <div class="bg-emerald-500 h-4 rounded-full" style="width: 80%;"></div>
-                                    <!-- Garisan Sasaran Kebangsaan & Negeri (sama pada 50%) -->
                                     <div class="absolute top-0 bottom-0 w-1 bg-gradient-to-r from-blue-500 to-red-500" style="left: 50%;"></div> 
                                 </div>
                             </div>
 
-                            <!-- Sasaran -->
                             <div class="flex justify-around text-sm mt-4 pt-4 border-t border-gray-200">
                                 <div class="text-center">
                                     <p class="font-semibold text-blue-600">Sasaran Kebangsaan</p>
@@ -468,7 +463,6 @@
                                     <p class="text-lg font-bold text-red-600">50%</p>
                                 </div>
                             </div>
-                             <!-- Status Pencapaian -->
                              <p class="text-center text-sm font-medium text-green-600 mt-4">
                                 Tahniah! Sasaran Kebangsaan dan Negeri telah dilepasi sebanyak 30%.
                             </p>
@@ -479,36 +473,30 @@
                             <h3 class="text-lg font-semibold text-gray-800">Penguasaan Literasi Al-Quran Murid Tahun 6</h3>
                             <p class="text-sm text-gray-500 mb-4">Peratus murid melepasi tahap minimum penguasaan.</p>
                             
-                            <!-- Pencapaian Semasa (Contoh) -->
                             <div class="mb-4">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-base font-medium text-purple-700">Pencapaian Semasa (SK Agama Miri)</span>
-                                    <span class="text-2xl font-bold text-purple-700">90%</span> <!-- Contoh -->
+                                    <span class="text-2xl font-bold text-purple-700">90%</span> 
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-4 relative">
-                                    <!-- Bar Kemajuan -->
-                                    <div class="bg-purple-500 h-4 rounded-full" style="width: 90%;"></div> <!-- Contoh -->
-                                    <!-- Garisan Sasaran Negeri -->
+                                    <div class="bg-purple-500 h-4 rounded-full" style="width: 90%;"></div> 
                                     <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.72%;"></div>
-                                    <!-- Garisan Sasaran Kebangsaan -->
                                     <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 98.25%;"></div> 
                                 </div>
                             </div>
 
-                            <!-- Sasaran -->
                             <div class="flex justify-around text-sm mt-4 pt-4 border-t border-gray-200">
                                 <div class="text-center">
                                     <p class="font-semibold text-blue-600">Sasaran Kebangsaan</p>
                                     <p class="text-lg font-bold text-blue-600">98.25%</p>
-                                    <p class="text-xs text-red-600">(Perlu +8.25%)</p> <!-- Contoh -->
+                                    <p class="text-xs text-red-600">(Perlu +8.25%)</p> 
                                 </div>
                                 <div class="text-center">
                                     <p class="font-semibold text-red-600">Sasaran Negeri</p>
                                     <p class="text-lg font-bold text-red-600">94.72%</p>
-                                     <p class="text-xs text-orange-600">(Perlu +4.72%)</p> <!-- Contoh -->
+                                     <p class="text-xs text-orange-600">(Perlu +4.72%)</p> 
                                 </div>
                             </div>
-                             <!-- Status Pencapaian (Contoh) -->
                              <p class="text-center text-sm font-medium text-orange-600 mt-4">
                                 Usaha perlu ditingkatkan untuk mencapai sasaran Negeri dan Kebangsaan.
                             </p>
@@ -517,89 +505,136 @@
                     </div>
                 </div>
 
-                 <!-- Pandangan 5: Prestasi Kelas - BARU -->
-                 <div id="view-prestasi-kelas" class="teacher-view">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Prestasi Kelas vs KPI 2025</h2>
+                 <!-- Pandangan 5: Prestasi Ikut Tahun -->
+                 <div id="view-prestasi-kelas" class="teacher-view"> 
+                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Prestasi Ikut Tahun vs KPI 2025 (SK Agama Miri)</h2>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-6"> 
                         
-                        <!-- Kad Kelas 1: 6 Bestari -->
-                        <div class="bg-white p-6 rounded-lg shadow-md space-y-6">
-                            <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Kelas: 6 Bestari</h3>
-
-                            <!-- KPI Khatam Al-Quran untuk Kelas -->
+                        <!-- Kad Tahun 6 -->
+                        <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
+                            <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Tahun 6</h3>
+                            <!-- KPI Khatam -->
                             <div>
-                                <h4 class="font-semibold text-gray-700 mb-1">Model Khatam Al-Quran</h4>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Model Khatam Al-Quran</h4>
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-sm font-medium text-emerald-700">Pencapaian Kelas</span>
-                                    <span class="text-lg font-bold text-emerald-700">75%</span> <!-- Contoh -->
+                                    <span class="text-xs font-medium text-emerald-700">Pencapaian Tahun 6</span>
+                                    <span class="text-base font-bold text-emerald-700">80%</span> 
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-3 relative">
-                                    <div class="bg-emerald-500 h-3 rounded-full" style="width: 75%;"></div>
+                                    <div class="bg-emerald-500 h-3 rounded-full" style="width: 80%;"></div>
                                     <div class="absolute top-0 bottom-0 w-0.5 bg-gradient-to-r from-blue-500 to-red-500" style="left: 50%;"></div> 
                                 </div>
-                                 <p class="text-xs text-center text-green-600 mt-1">
-                                    Melepasi Sasaran Negeri/Kebangsaan (50%)
-                                </p>
+                                 <p class="text-xs text-center text-green-600 mt-1">Melepasi Sasaran (50%)</p>
                             </div>
-
-                            <!-- KPI Literasi Al-Quran untuk Kelas -->
+                            <!-- KPI Literasi -->
                              <div>
-                                <h4 class="font-semibold text-gray-700 mb-1">Penguasaan Literasi Al-Quran</h4>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Penguasaan Literasi Al-Quran</h4>
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-sm font-medium text-purple-700">Pencapaian Kelas</span>
-                                    <span class="text-lg font-bold text-purple-700">88%</span> <!-- Contoh -->
+                                    <span class="text-xs font-medium text-purple-700">Pencapaian Tahun 6</span>
+                                    <span class="text-base font-bold text-purple-700">90%</span> 
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-3 relative">
-                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 88%;"></div>
+                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 90%;"></div>
                                     <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.72%;"></div>
                                     <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 98.25%;"></div> 
                                 </div>
-                                 <p class="text-xs text-center text-orange-600 mt-1">
-                                    Perlu +6.72% (Negeri) / +10.25% (Keb)
-                                </p>
+                                 <p class="text-xs text-center text-orange-600 mt-1">Perlu +4.72% (Negeri) / +8.25% (Keb)</p>
                             </div>
                         </div>
 
-                        <!-- Kad Kelas 2: 5 Cemerlang -->
-                         <div class="bg-white p-6 rounded-lg shadow-md space-y-6">
-                            <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Kelas: 5 Cemerlang</h3>
-
-                            <!-- KPI Khatam Al-Quran untuk Kelas -->
+                         <!-- Kad Tahun 5 -->
+                        <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
+                            <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Tahun 5</h3>
+                            <!-- KPI Khatam -->
                             <div>
-                                <h4 class="font-semibold text-gray-700 mb-1">Model Khatam Al-Quran</h4>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Model Khatam Al-Quran</h4>
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-sm font-medium text-emerald-700">Pencapaian Kelas</span>
-                                    <span class="text-lg font-bold text-emerald-700">100%</span> <!-- Contoh -->
+                                    <span class="text-xs font-medium text-emerald-700">Pencapaian Tahun 5</span>
+                                    <span class="text-base font-bold text-emerald-700">45%</span> 
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-3 relative">
-                                    <div class="bg-emerald-500 h-3 rounded-full" style="width: 100%;"></div>
+                                    <div class="bg-emerald-500 h-3 rounded-full" style="width: 45%;"></div>
                                     <div class="absolute top-0 bottom-0 w-0.5 bg-gradient-to-r from-blue-500 to-red-500" style="left: 50%;"></div> 
                                 </div>
-                                 <p class="text-xs text-center text-green-600 mt-1">
-                                    Melepasi Sasaran Negeri/Kebangsaan (50%)
-                                </p>
+                                 <p class="text-xs text-center text-red-600 mt-1">Perlu +5% (Sasaran 50%)</p>
                             </div>
-
-                            <!-- KPI Literasi Al-Quran untuk Kelas -->
+                            <!-- KPI Literasi -->
                              <div>
-                                <h4 class="font-semibold text-gray-700 mb-1">Penguasaan Literasi Al-Quran</h4>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Penguasaan Literasi Al-Quran</h4>
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-sm font-medium text-purple-700">Pencapaian Kelas</span>
-                                    <span class="text-lg font-bold text-purple-700">95%</span> <!-- Contoh -->
+                                    <span class="text-xs font-medium text-purple-700">Pencapaian Tahun 5</span>
+                                    <span class="text-base font-bold text-purple-700">96%</span> 
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-3 relative">
-                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 95%;"></div>
-                                    <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.72%;"></div><!-- Negeri -->
-                                    <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 98.25%;"></div> <!-- Kebangsaan -->
+                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 96%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.72%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 98.25%;"></div> 
                                 </div>
-                                 <p class="text-xs text-center text-orange-600 mt-1">
-                                    Melepasi Negeri (+0.28%), Perlu +3.25% (Keb)
-                                </p>
+                                 <p class="text-xs text-center text-orange-600 mt-1">Melepasi Negeri (+1.28%), Perlu +2.25% (Keb)</p>
                             </div>
                         </div>
 
-                        <!-- Tambah kad untuk kelas lain jika perlu -->
+                         <!-- Kad Tahun 4 -->
+                        <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
+                            <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Tahun 4</h3>
+                             <div>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Model Khatam Al-Quran</h4>
+                               <p class="text-xs text-gray-500 italic">KPI tidak ditetapkan untuk tahun ini.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Penguasaan Literasi Al-Quran</h4>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs font-medium text-purple-700">Pencapaian Tahun 4</span>
+                                    <span class="text-base font-bold text-purple-700">99%</span> 
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 relative">
+                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 99%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.72%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 98.25%;"></div> 
+                                </div>
+                                 <p class="text-xs text-center text-green-600 mt-1">Melepasi Sasaran Negeri & Kebangsaan</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Kad Tahun 3 -->
+                        <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
+                             <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Tahun 3</h3>
+                              <div>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Model Khatam Al-Quran</h4>
+                               <p class="text-xs text-gray-500 italic">KPI tidak ditetapkan untuk tahun ini.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Penguasaan Literasi Al-Quran</h4>
+                               <p class="text-xs text-gray-500 italic">KPI tidak ditetapkan untuk tahun ini.</p>
+                            </div>
+                        </div>
+
+                        <!-- Kad Tahun 2 -->
+                        <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
+                             <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Tahun 2</h3>
+                              <div>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Model Khatam Al-Quran</h4>
+                               <p class="text-xs text-gray-500 italic">KPI tidak ditetapkan untuk tahun ini.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Penguasaan Literasi Al-Quran</h4>
+                               <p class="text-xs text-gray-500 italic">KPI tidak ditetapkan untuk tahun ini.</p>
+                            </div>
+                        </div>
+
+                         <!-- Kad Tahun 1 -->
+                        <div class="bg-white p-6 rounded-lg shadow-md space-y-4">
+                             <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Tahun 1</h3>
+                             <div>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Model Khatam Al-Quran</h4>
+                               <p class="text-xs text-gray-500 italic">KPI tidak ditetapkan untuk tahun ini.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-1 text-sm">Penguasaan Literasi Al-Quran</h4>
+                               <p class="text-xs text-gray-500 italic">KPI tidak ditetapkan untuk tahun ini.</p>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -611,6 +646,44 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- DATA CONTOH (Lebih banyak murid) ---
+             const allStudentData = [
+                { name: "Ali bin Abu", class: "6 Bestari", juzuk: 15, literasi: "Menguasai" },
+                { name: "Siti Nurhaliza binti Kamal", class: "5 Cemerlang", juzuk: 30, literasi: "Menguasai" },
+                { name: "Mior bin Ahmad", class: "6 Bestari", juzuk: 5, literasi: "Belum Menguasai" },
+                { name: "Ahmad bin Kassim", class: "6 Bestari", juzuk: 20, literasi: "Menguasai" },
+                { name: "Fatimah binti Ali", class: "5 Cemerlang", juzuk: 28, literasi: "Menguasai" },
+                { name: "Zul bin Razak", class: "6 Bestari", juzuk: 10, literasi: "Belum Menguasai" },
+                { name: "Aisyah binti Musa", class: "5 Cemerlang", juzuk: 22, literasi: "Menguasai" },
+                { name: "Ismail bin Ibrahim", class: "6 Bestari", juzuk: 30, literasi: "Menguasai" },
+                { name: "Noraini binti Sulaiman", class: "5 Cemerlang", juzuk: 18, literasi: "Menguasai" },
+                { name: "Khairul bin Abdullah", class: "6 Bestari", juzuk: 12, literasi: "Belum Menguasai" },
+                { name: "Aminah binti Hassan", class: "5 Cemerlang", juzuk: 25, literasi: "Menguasai" },
+                { name: "Rahim bin Osman", class: "6 Bestari", juzuk: 7, literasi: "Belum Menguasai" },
+                 { name: "Student 13", class: "6 Bestari", juzuk: 11, literasi: "Menguasai" },
+                { name: "Student 14", class: "5 Cemerlang", juzuk: 14, literasi: "Menguasai" },
+                { name: "Student 15", class: "6 Bestari", juzuk: 16, literasi: "Belum Menguasai" },
+                { name: "Student 16", class: "5 Cemerlang", juzuk: 19, literasi: "Menguasai" },
+                { name: "Student 17", class: "6 Bestari", juzuk: 21, literasi: "Menguasai" },
+                { name: "Student 18", class: "5 Cemerlang", juzuk: 23, literasi: "Menguasai" },
+                { name: "Student 19", class: "6 Bestari", juzuk: 24, literasi: "Belum Menguasai" },
+                { name: "Student 20", class: "5 Cemerlang", juzuk: 26, literasi: "Menguasai" },
+                { name: "Student 21", class: "6 Bestari", juzuk: 27, literasi: "Menguasai" },
+                { name: "Student 22", class: "5 Cemerlang", juzuk: 29, literasi: "Menguasai" },
+                { name: "Student 23", class: "6 Bestari", juzuk: 1, literasi: "Belum Menguasai" },
+                { name: "Student 24", class: "5 Cemerlang", juzuk: 2, literasi: "Belum Menguasai" },
+                { name: "Student 25", class: "6 Bestari", juzuk: 3, literasi: "Belum Menguasai" },
+                { name: "Student 26", class: "5 Cemerlang", juzuk: 4, literasi: "Menguasai" },
+                { name: "Student 27", class: "6 Bestari", juzuk: 6, literasi: "Menguasai" },
+                { name: "Student 28", class: "5 Cemerlang", juzuk: 8, literasi: "Belum Menguasai" },
+                { name: "Student 29", class: "6 Bestari", juzuk: 9, literasi: "Menguasai" },
+                { name: "Student 30", class: "5 Cemerlang", juzuk: 13, literasi: "Menguasai" },
+                { name: "Student 31", class: "6 Bestari", juzuk: 17, literasi: "Menguasai" },
+                { name: "Student 32", class: "5 Cemerlang", juzuk: 30, literasi: "Menguasai" },
+                { name: "Student 33", class: "6 Bestari", juzuk: 30, literasi: "Menguasai" },
+            ];
+
             const navLinks = document.querySelectorAll('.nav-link');
             const teacherViews = document.querySelectorAll('.teacher-view');
             const viewTitle = document.getElementById('view-title');
@@ -620,9 +693,103 @@
             const viewLaporanIndividu = document.getElementById('view-laporan-individu');
             const viewPerancangan = document.getElementById('view-perancangan'); 
             const viewKPI = document.getElementById('view-kpi'); 
-            const viewPrestasiKelas = document.getElementById('view-prestasi-kelas'); // Pandangan baru
+            const viewPrestasiKelas = document.getElementById('view-prestasi-kelas'); 
 
-            // Fungsi untuk menukar pandangan utama (Sidebar)
+            // --- Logik Pagination ---
+            const studentTableBody = document.getElementById('student-table-body');
+            const prevPageButton = document.getElementById('prev-page');
+            const nextPageButton = document.getElementById('next-page');
+            const pageInfoSpan = document.getElementById('page-info');
+            const rowsPerPage = 10; // Tetapkan bilangan murid setiap halaman
+            let currentPage = 1;
+            let totalPages = Math.ceil(allStudentData.length / rowsPerPage);
+
+            // Fungsi untuk memaparkan murid berdasarkan halaman
+            function displayStudents(page) {
+                currentPage = page;
+                studentTableBody.innerHTML = ''; // Kosongkan jadual sedia ada
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                const paginatedStudents = allStudentData.slice(start, end);
+
+                paginatedStudents.forEach(student => {
+                    const row = document.createElement('tr');
+
+                    // Kelas untuk status literasi
+                    const literasiClass = student.literasi === "Menguasai" 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800';
+                    const khatamStatus = student.juzuk === 30 ? ' (Khatam)' : '';
+                    const khatamColor = student.juzuk < 15 ? 'text-orange-600' : 'text-emerald-700';
+
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.class}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <span class="font-medium ${khatamColor}">${student.juzuk} / 30 Juzuk</span>${khatamStatus}
+                        </td>
+                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${literasiClass}">
+                                 ${student.literasi}
+                             </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <a href="#" class="js-view-report text-emerald-600 hover:text-emerald-900" 
+                               data-student-name="${student.name}" 
+                               data-juzuk="${student.juzuk}" 
+                               data-literasi="${student.literasi}"> 
+                                Lihat Laporan Penuh
+                            </a>
+                        </td>
+                    `;
+                    studentTableBody.appendChild(row);
+                });
+
+                // Kemaskini info halaman
+                pageInfoSpan.textContent = `Halaman ${currentPage} dari ${totalPages}`;
+
+                // Dayakan/Nyahdayakan butang
+                prevPageButton.disabled = currentPage === 1;
+                nextPageButton.disabled = currentPage === totalPages;
+
+                 // PENTING: Tambah semula event listener untuk butang "Lihat Laporan Penuh"
+                addReportButtonListeners(); 
+            }
+
+            // Fungsi untuk menyediakan pagination
+            function setupPagination() {
+                 totalPages = Math.ceil(allStudentData.length / rowsPerPage); // Kira semula jika data berubah
+                
+                prevPageButton.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        displayStudents(currentPage - 1);
+                    }
+                });
+
+                nextPageButton.addEventListener('click', () => {
+                    if (currentPage < totalPages) {
+                        displayStudents(currentPage + 1);
+                    }
+                });
+
+                 // Papar halaman pertama semasa muat
+                displayStudents(1); 
+            }
+
+            // Fungsi untuk mengira dan memaparkan analisis infografik
+            function updateInfographics() {
+                const totalStudents = allStudentData.length;
+                const khatamStudents = allStudentData.filter(s => s.juzuk === 30).length;
+                const literasiMenguasai = allStudentData.filter(s => s.literasi === "Menguasai").length;
+                const literasiPercentage = totalStudents > 0 ? Math.round((literasiMenguasai / totalStudents) * 100) : 0;
+
+                document.getElementById('total-students-infographic').textContent = totalStudents;
+                document.getElementById('khatam-students-infographic').textContent = khatamStudents;
+                document.getElementById('literasi-percentage-infographic').textContent = `${literasiPercentage}%`;
+                document.getElementById('literasi-count-infographic').textContent = `(${literasiMenguasai} / ${totalStudents} Murid Menguasai)`;
+            }
+
+            // --- Fungsi Tukar Pandangan Utama ---
             function switchView(viewId) {
                 teacherViews.forEach(view => view.classList.remove('active'));
                 const activeView = document.getElementById(viewId);
@@ -631,79 +798,95 @@
                 }
             }
 
-            // Tambah event listener pada pautan navigasi sidebar
+            // Event listener untuk pautan navigasi sidebar
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    
-                    // Kemaskini gaya pautan aktif
                     navLinks.forEach(nav => nav.classList.remove('active'));
                     link.classList.add('active');
-                    
                     const viewId = link.getAttribute('data-view');
                     switchView(viewId);
-                    
-                    // Kemaskini tajuk header
                     viewTitle.textContent = link.textContent.trim();
                 });
             });
 
-            // Tunjukkan pandangan pertama (Pelaporan) semasa muat
-            switchView('view-pelaporan');
-             document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active'); // Pastikan yang pertama aktif
-
-            // --- Logik untuk Laporan Individu ---
-
-            const reportButtons = document.querySelectorAll('.js-view-report');
+             // --- Logik Laporan Individu ---
             const backButton = document.getElementById('js-back-to-list');
-            
             const reportTitle = document.getElementById('student-report-title');
             const reportPercentage = document.getElementById('student-percentage');
             const reportJuzukText = document.getElementById('student-juzuk-text');
             const reportProgressBar = document.getElementById('student-progress-bar');
+            const reportLiterasiStatus = document.getElementById('student-literasi-status');
+            const iconMenguasai = document.getElementById('literasi-icon-menguasai');
+            const iconBelum = document.getElementById('literasi-icon-belum');
             const reportJuzukInput = document.getElementById('juzukBulanan'); 
+            const reportLiterasiInput = document.getElementById('literasiBulanan'); 
 
-            // Event listener untuk semua butang "Lihat Laporan"
-            reportButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    // Dapatkan data dari butang
-                    const studentName = button.getAttribute('data-student-name');
-                    const juzuk = parseInt(button.getAttribute('data-juzuk'), 10);
-                    const percentage = Math.round((juzuk / 30) * 100);
-                    
-                    // Kemaskini paparan laporan individu
-                    reportTitle.textContent = `Laporan Prestasi: ${studentName}`;
-                    reportPercentage.textContent = `${percentage}%`;
-                    reportJuzukText.textContent = `${juzuk} / 30 Juzuk Selesai`;
-                    reportProgressBar.style.width = `${percentage}%`;
-                    
-                    if(reportJuzukInput) {
-                        reportJuzukInput.value = juzuk;
-                    }
-                    
-                    // Tukar pandangan
-                    switchView('view-laporan-individu');
-                    viewTitle.textContent = "Laporan Individu"; // Kemaskini tajuk header
-                    
-                    // Pastikan link sidebar 'Pelaporan' kekal aktif secara visual
-                     navLinks.forEach(nav => nav.classList.remove('active'));
-                    document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active');
+            // Fungsi untuk menambah event listener pada butang laporan (perlu dipanggil setiap kali jadual dikemaskini)
+            function addReportButtonListeners() {
+                 const reportButtons = document.querySelectorAll('.js-view-report');
+                 reportButtons.forEach(button => {
+                     // Buang listener lama jika ada (untuk elak berganda)
+                    button.replaceWith(button.cloneNode(true));
                 });
-            });
+                 // Tambah listener baru
+                 document.querySelectorAll('.js-view-report').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const studentName = button.getAttribute('data-student-name');
+                        const juzuk = parseInt(button.getAttribute('data-juzuk'), 10);
+                        const literasi = button.getAttribute('data-literasi'); 
+                        const percentage = Math.round((juzuk / 30) * 100);
+                        
+                        // Kemaskini paparan laporan individu
+                        reportTitle.textContent = `Laporan Prestasi: ${studentName}`;
+                        reportPercentage.textContent = `${percentage}%`;
+                        reportJuzukText.textContent = `${juzuk} / 30 Juzuk Selesai`;
+                        reportProgressBar.style.width = `${percentage}%`;
+                        
+                        if(reportLiterasiStatus) {
+                            reportLiterasiStatus.textContent = literasi;
+                            if (literasi === "Menguasai") {
+                                reportLiterasiStatus.classList.remove('text-red-600');
+                                reportLiterasiStatus.classList.add('text-green-600');
+                                iconMenguasai.classList.remove('hidden');
+                                iconBelum.classList.add('hidden');
+                            } else {
+                                reportLiterasiStatus.classList.remove('text-green-600');
+                                reportLiterasiStatus.classList.add('text-red-600');
+                                iconMenguasai.classList.add('hidden');
+                                iconBelum.classList.remove('hidden');
+                            }
+                        }
+
+                        if(reportJuzukInput) reportJuzukInput.value = juzuk;
+                        if(reportLiterasiInput) reportLiterasiInput.value = literasi; 
+                        
+                        switchView('view-laporan-individu');
+                        viewTitle.textContent = "Laporan Individu"; 
+                        navLinks.forEach(nav => nav.classList.remove('active'));
+                        document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active');
+                    });
+                });
+            }
 
             // Event listener untuk butang "Kembali"
             if (backButton) { 
                 backButton.addEventListener('click', (e) => {
                     e.preventDefault();
-                    switchView('view-pelaporan'); // Kembali ke senarai pelaporan
-                    viewTitle.textContent = "Pelaporan Murid"; // Kemaskini tajuk header
-                     // Pastikan link sidebar 'Pelaporan' aktif semula
-                     navLinks.forEach(nav => nav.classList.remove('active'));
+                    switchView('view-pelaporan'); 
+                    viewTitle.textContent = "Pelaporan Murid"; 
+                    navLinks.forEach(nav => nav.classList.remove('active'));
                     document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active');
                 });
             }
+
+            // --- Panggilan Fungsi Semasa Muat ---
+            updateInfographics(); // Kira infografik berdasarkan data penuh
+            setupPagination(); // Sediakan pagination dan papar halaman pertama
+            switchView('view-pelaporan'); // Pastikan pandangan pelaporan aktif
+            document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active'); // Pastikan pautan sidebar aktif
+        
         });
     </script>
 
