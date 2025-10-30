@@ -38,9 +38,10 @@
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 00-4-4H3V7h2a4 4 0 004-4v-2M9 17h6M9 17H5M15 17v-2a4 4 0 014-4h2V7h-2a4 4 0 01-4-4v-2M15 17h-6M15 17H19"></path></svg>
                     Pelaporan Murid
                 </a>
-                <a href="#daftar" data-view="view-daftar-murid" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md text-emerald-100 hover:bg-emerald-700">
-                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
-                    Daftar Murid Baru
+                <!-- Pautan Baru: Perancangan Aktiviti -->
+                <a href="#perancangan" data-view="view-perancangan" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md text-emerald-100 hover:bg-emerald-700">
+                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    Perancangan Aktiviti
                 </a>
             </nav>
             <div class="mt-auto px-6 py-4 border-t border-emerald-700">
@@ -167,29 +168,130 @@
                     </div>
                 </div>
 
-                <!-- Pandangan 2: Daftar Murid Baru -->
-                <div id="view-daftar-murid" class="teacher-view">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Daftar Murid Baru (SK Agama Miri)</h2>
-                    <form class="bg-white p-6 rounded-lg shadow-md mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="studentName" class="block text-sm font-medium text-gray-700">Nama Penuh Murid</label>
-                            <input type="text" id="studentName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                <!-- Pandangan 2: Perancangan Aktiviti -->
+                <div id="view-perancangan" class="teacher-view">
+
+                    <!-- Bahagian Analisis Infografik Aktiviti -->
+                    <div class="mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Analisis Aktiviti</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Kad 1: Jumlah Aktiviti -->
+                            <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+                                <div class="flex-shrink-0 bg-emerald-100 text-emerald-600 rounded-full p-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-gray-500">Jumlah Aktiviti</div>
+                                    <div class="text-2xl font-bold text-gray-900">3</div>
+                                </div>
+                            </div>
+                            <!-- Kad 2: Aktiviti Selesai -->
+                            <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+                                <div class="flex-shrink-0 bg-blue-100 text-blue-600 rounded-full p-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-gray-500">Aktiviti Selesai</div>
+                                    <div class="text-2xl font-bold text-gray-900">1</div>
+                                </div>
+                            </div>
+                            <!-- Kad 3: Belum Selesai -->
+                            <div class="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
+                                <div class="flex-shrink-0 bg-yellow-100 text-yellow-600 rounded-full p-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-gray-500">Belum Selesai</div>
+                                    <div class="text-2xl font-bold text-gray-900">2</div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label for="studentIC" class="block text-sm font-medium text-gray-700">No. MyKid / Kad Pengenalan</label>
-                            <input type="text" id="studentIC" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
-                        </div>
-                        <div>
-                            <label for="studentClass" class="block text-sm font-medium text-gray-700">Kelas</label>
-                            <input type="text" id="studentClass" placeholder="cth: 6 Bestari" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
-                        </div>
-                        <!-- Nota: Sekolah tidak perlu dipilih kerana guru sudah terikat dengan sekolahnya -->
-                        <div class="md:col-span-2 text-right">
-                            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded-md font-medium hover:bg-emerald-700">
-                                Simpan Murid
-                            </button>
-                        </div>
-                    </form>
+                    </div>
+
+                    <!-- Borang Tambah Aktiviti -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Tambah Aktiviti Tahunan</h3>
+                        <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="md:col-span-2">
+                                <label for="activityName" class="block text-sm font-medium text-gray-700">Nama Aktiviti</label>
+                                <input type="text" id="activityName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" placeholder="cth: Kem Cemerlang Jawi">
+                            </div>
+                            
+                            <div>
+                                <label for="activitySingleDate" class="block text-sm font-medium text-gray-700">Tarikh Pelaksanaan</label>
+                                <input type="date" id="activitySingleDate" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                            
+                            <div>
+                                <label for="activityStatus" class="block text-sm font-medium text-gray-700">Status</label>
+                                <select id="activityStatus" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+                                    <option>Belum Selesai</option>
+                                    <option>Selesai</option>
+                                </select>
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label for="activityObjective" class="block text-sm font-medium text-gray-700">Objektif</label>
+                                <textarea id="activityObjective" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500" placeholder="Objektif yang jelas dan berfokus..."></textarea>
+                            </div>
+                            
+                            <div class="md:col-span-2 text-right">
+                                <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded-md font-medium hover:bg-emerald-700">
+                                    Simpan Aktiviti
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Senarai Aktiviti Dirancang -->
+                    <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 p-6 border-b">Senarai Aktiviti Dirancang</h3>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Aktiviti</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarikh</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Objektif</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <!-- Contoh Baris 1 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Mesyuarat Pendidikan Islam (1)</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">20 Februari 2026</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                          Selesai
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Menyelaras pelaksanaan program Pendidikan Islam.</td>
+                                </tr>
+                                <!-- Contoh Baris 2 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Kem Cemerlang Jawi</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">14 Jun 2026</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                          Belum Selesai
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Memastikan semua murid Tahun 6 menguasai Jawi.</td>
+                                </tr>
+                                <!-- Contoh Baris 3 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Program Khatam Al-Quran</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">20 Oktober 2026</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                          Belum Selesai
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Meraikan murid yang telah khatam Al-Quran.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 
                 <!-- Pandangan 3: Laporan Individu (cth: Ali) -->
@@ -319,8 +421,9 @@
             const viewTitle = document.getElementById('view-title');
             
             const viewPelaporan = document.getElementById('view-pelaporan');
-            const viewDaftarMurid = document.getElementById('view-daftar-murid');
             const viewLaporanIndividu = document.getElementById('view-laporan-individu');
+            // Pandangan baru ditambah
+            const viewPerancangan = document.getElementById('view-perancangan'); 
 
             // Fungsi untuk menukar pandangan utama (Sidebar)
             function switchView(viewId) {
@@ -362,7 +465,6 @@
             const reportPercentage = document.getElementById('student-percentage');
             const reportJuzukText = document.getElementById('student-juzuk-text');
             const reportProgressBar = document.getElementById('student-progress-bar');
-            // DIKEMASKINI: Tukar ID input untuk borang bulanan
             const reportJuzukInput = document.getElementById('juzukBulanan'); 
 
             // Event listener untuk semua butang "Lihat Laporan"
@@ -381,28 +483,28 @@
                     reportJuzukText.textContent = `${juzuk} / 30 Juzuk Selesai`;
                     reportProgressBar.style.width = `${percentage}%`;
                     
-                    // Kemaskini nilai dalam borang laporan bulanan
                     if(reportJuzukInput) {
                         reportJuzukInput.value = juzuk;
                     }
                     
                     // Tukar pandangan
-                    viewPelaporan.classList.remove('active');
-                    viewLaporanIndividu.classList.add('active');
+                    switchView('view-laporan-individu');
                     viewTitle.textContent = "Laporan Individu"; // Kemaskini tajuk header
                     
-                    // Pastikan link sidebar 'Pelaporan' kekal aktif
+                    // Pastikan link sidebar 'Pelaporan' kekal aktif secara visual
+                    navLinks.forEach(nav => {
+                        nav.classList.remove('bg-emerald-900', 'text-white');
+                        nav.classList.add('text-emerald-100', 'hover:bg-emerald-700');
+                    });
                     document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('bg-emerald-900', 'text-white');
-                    document.querySelector('.nav-link[data-view="view-daftar-murid"]').classList.remove('bg-emerald-900', 'text-white');
-                    document.querySelector('.nav-link[data-view="view-daftar-murid"]').classList.add('text-emerald-100');
+                    document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.remove('text-emerald-100');
                 });
             });
 
             // Event listener untuk butang "Kembali"
             backButton.addEventListener('click', (e) => {
                 e.preventDefault();
-                viewLaporanIndividu.classList.remove('active');
-                viewPelaporan.classList.add('active');
+                switchView('view-pelaporan'); // Kembali ke senarai pelaporan
                 viewTitle.textContent = "Pelaporan Murid"; // Kemaskini tajuk header
             });
         });
