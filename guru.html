@@ -22,6 +22,17 @@
         .teacher-view.active {
             display: block;
         }
+         /* Styling untuk pautan sidebar aktif */
+        .nav-link.active {
+            background-color: #065f46; /* emerald-900 */
+            color: white;
+        }
+        .nav-link:not(.active) {
+            color: #a7f3d0; /* emerald-100 */
+        }
+         .nav-link:not(.active):hover {
+            background-color: #047857; /* emerald-700 */
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -34,19 +45,24 @@
                 <span class="block text-sm text-emerald-300">Modul Guru</span>
             </div>
             <nav class="flex-1 px-4 py-4 space-y-2">
-                <a href="#pelaporan" data-view="view-pelaporan" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md bg-emerald-900 text-white">
+                <a href="#pelaporan" data-view="view-pelaporan" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md active"> <!-- Set Pelaporan as active by default -->
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 00-4-4H3V7h2a4 4 0 004-4v-2M9 17h6M9 17H5M15 17v-2a4 4 0 014-4h2V7h-2a4 4 0 01-4-4v-2M15 17h-6M15 17H19"></path></svg>
                     Pelaporan Murid
                 </a>
                 <!-- Pautan: Perancangan Aktiviti -->
-                <a href="#perancangan" data-view="view-perancangan" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md text-emerald-100 hover:bg-emerald-700">
+                <a href="#perancangan" data-view="view-perancangan" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md">
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     Perancangan Aktiviti
                 </a>
-                <!-- Pautan Baru: Sasaran KPI -->
-                <a href="#kpi" data-view="view-kpi" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md text-emerald-100 hover:bg-emerald-700">
+                <!-- Pautan: Sasaran KPI -->
+                <a href="#kpi" data-view="view-kpi" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md">
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
-                    Sasaran KPI
+                    Sasaran KPI Sekolah
+                </a>
+                <!-- Pautan Baru: Prestasi Kelas -->
+                <a href="#prestasi-kelas" data-view="view-prestasi-kelas" class="nav-link flex items-center px-2 py-2 text-base font-medium rounded-md">
+                   <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Prestasi Kelas
                 </a>
             </nav>
             <div class="mt-auto px-6 py-4 border-t border-emerald-700">
@@ -415,7 +431,7 @@
                     </div>
                 </div>
 
-                <!-- Pandangan 4: Sasaran KPI -->
+                <!-- Pandangan 4: Sasaran KPI Sekolah -->
                 <div id="view-kpi" class="teacher-view">
                     <h2 class="text-xl font-semibold text-gray-800 mb-6">Sasaran KPI Kebangsaan & Negeri 2025</h2>
                     
@@ -501,6 +517,94 @@
                     </div>
                 </div>
 
+                 <!-- Pandangan 5: Prestasi Kelas - BARU -->
+                 <div id="view-prestasi-kelas" class="teacher-view">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Prestasi Kelas vs KPI 2025</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- Kad Kelas 1: 6 Bestari -->
+                        <div class="bg-white p-6 rounded-lg shadow-md space-y-6">
+                            <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Kelas: 6 Bestari</h3>
+
+                            <!-- KPI Khatam Al-Quran untuk Kelas -->
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-1">Model Khatam Al-Quran</h4>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-medium text-emerald-700">Pencapaian Kelas</span>
+                                    <span class="text-lg font-bold text-emerald-700">75%</span> <!-- Contoh -->
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 relative">
+                                    <div class="bg-emerald-500 h-3 rounded-full" style="width: 75%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-gradient-to-r from-blue-500 to-red-500" style="left: 50%;"></div> 
+                                </div>
+                                 <p class="text-xs text-center text-green-600 mt-1">
+                                    Melepasi Sasaran Negeri/Kebangsaan (50%)
+                                </p>
+                            </div>
+
+                            <!-- KPI Literasi Al-Quran untuk Kelas -->
+                             <div>
+                                <h4 class="font-semibold text-gray-700 mb-1">Penguasaan Literasi Al-Quran</h4>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-medium text-purple-700">Pencapaian Kelas</span>
+                                    <span class="text-lg font-bold text-purple-700">88%</span> <!-- Contoh -->
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 relative">
+                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 88%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.72%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 98.25%;"></div> 
+                                </div>
+                                 <p class="text-xs text-center text-orange-600 mt-1">
+                                    Perlu +6.72% (Negeri) / +10.25% (Keb)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Kad Kelas 2: 5 Cemerlang -->
+                         <div class="bg-white p-6 rounded-lg shadow-md space-y-6">
+                            <h3 class="text-lg font-bold text-gray-900 border-b pb-2">Kelas: 5 Cemerlang</h3>
+
+                            <!-- KPI Khatam Al-Quran untuk Kelas -->
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-1">Model Khatam Al-Quran</h4>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-medium text-emerald-700">Pencapaian Kelas</span>
+                                    <span class="text-lg font-bold text-emerald-700">100%</span> <!-- Contoh -->
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 relative">
+                                    <div class="bg-emerald-500 h-3 rounded-full" style="width: 100%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-gradient-to-r from-blue-500 to-red-500" style="left: 50%;"></div> 
+                                </div>
+                                 <p class="text-xs text-center text-green-600 mt-1">
+                                    Melepasi Sasaran Negeri/Kebangsaan (50%)
+                                </p>
+                            </div>
+
+                            <!-- KPI Literasi Al-Quran untuk Kelas -->
+                             <div>
+                                <h4 class="font-semibold text-gray-700 mb-1">Penguasaan Literasi Al-Quran</h4>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-medium text-purple-700">Pencapaian Kelas</span>
+                                    <span class="text-lg font-bold text-purple-700">95%</span> <!-- Contoh -->
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 relative">
+                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 95%;"></div>
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.72%;"></div><!-- Negeri -->
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 98.25%;"></div> <!-- Kebangsaan -->
+                                </div>
+                                 <p class="text-xs text-center text-orange-600 mt-1">
+                                    Melepasi Negeri (+0.28%), Perlu +3.25% (Keb)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tambah kad untuk kelas lain jika perlu -->
+
+                    </div>
+                </div>
+
+
             </main>
         </div>
     </div>
@@ -511,11 +615,12 @@
             const teacherViews = document.querySelectorAll('.teacher-view');
             const viewTitle = document.getElementById('view-title');
             
+            // Pembolehubah untuk semua pandangan
             const viewPelaporan = document.getElementById('view-pelaporan');
             const viewLaporanIndividu = document.getElementById('view-laporan-individu');
-            // Pandangan baru ditambah
             const viewPerancangan = document.getElementById('view-perancangan'); 
-            const viewKPI = document.getElementById('view-kpi'); // Pembolehubah baru ditambah
+            const viewKPI = document.getElementById('view-kpi'); 
+            const viewPrestasiKelas = document.getElementById('view-prestasi-kelas'); // Pandangan baru
 
             // Fungsi untuk menukar pandangan utama (Sidebar)
             function switchView(viewId) {
@@ -531,22 +636,21 @@
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     
-                    navLinks.forEach(nav => {
-                        nav.classList.remove('bg-emerald-900', 'text-white');
-                        nav.classList.add('text-emerald-100', 'hover:bg-emerald-700');
-                    });
-                    link.classList.add('bg-emerald-900', 'text-white');
-                    link.classList.remove('text-emerald-100', 'hover:bg-emerald-700');
+                    // Kemaskini gaya pautan aktif
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    link.classList.add('active');
                     
                     const viewId = link.getAttribute('data-view');
                     switchView(viewId);
                     
+                    // Kemaskini tajuk header
                     viewTitle.textContent = link.textContent.trim();
                 });
             });
 
             // Tunjukkan pandangan pertama (Pelaporan) semasa muat
             switchView('view-pelaporan');
+             document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active'); // Pastikan yang pertama aktif
 
             // --- Logik untuk Laporan Individu ---
 
@@ -584,21 +688,20 @@
                     viewTitle.textContent = "Laporan Individu"; // Kemaskini tajuk header
                     
                     // Pastikan link sidebar 'Pelaporan' kekal aktif secara visual
-                    navLinks.forEach(nav => {
-                        nav.classList.remove('bg-emerald-900', 'text-white');
-                        nav.classList.add('text-emerald-100', 'hover:bg-emerald-700');
-                    });
-                    document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('bg-emerald-900', 'text-white');
-                    document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.remove('text-emerald-100');
+                     navLinks.forEach(nav => nav.classList.remove('active'));
+                    document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active');
                 });
             });
 
             // Event listener untuk butang "Kembali"
-            if (backButton) { // Tambah semakan jika butang wujud
+            if (backButton) { 
                 backButton.addEventListener('click', (e) => {
                     e.preventDefault();
                     switchView('view-pelaporan'); // Kembali ke senarai pelaporan
                     viewTitle.textContent = "Pelaporan Murid"; // Kemaskini tajuk header
+                     // Pastikan link sidebar 'Pelaporan' aktif semula
+                     navLinks.forEach(nav => nav.classList.remove('active'));
+                    document.querySelector('.nav-link[data-view="view-pelaporan"]').classList.add('active');
                 });
             }
         });
