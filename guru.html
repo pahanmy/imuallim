@@ -417,13 +417,14 @@
 
                 <!-- Pandangan 4: Sasaran KPI -->
                 <div id="view-kpi" class="teacher-view">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Sasaran KPI JPN & PPD</h2>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-6">Sasaran KPI Kebangsaan & Negeri 2025</h2>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6"> 
+                    <!-- Grid diubah kepada 1 lajur -->
+                    <div class="grid grid-cols-1 gap-6"> 
                         
-                        <!-- Kad KPI Gabungan: Khatam Al-Quran - Versi Ringkas -->
-                        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-2 lg:col-span-1"> 
-                            <h3 class="text-lg font-semibold text-gray-800">KPI: Khatam Al-Quran</h3>
+                        <!-- Kad KPI 1: Khatam Al-Quran -->
+                        <div class="bg-white p-6 rounded-lg shadow-md"> 
+                            <h3 class="text-lg font-semibold text-gray-800">Model Khatam Al-Quran Murid Tahun 6</h3>
                             <p class="text-sm text-gray-500 mb-4">Peratus murid khatam Al-Quran sebelum tamat Tahun 6.</p>
                             
                             <!-- Pencapaian Semasa -->
@@ -435,26 +436,66 @@
                                 <div class="w-full bg-gray-200 rounded-full h-4 relative">
                                     <!-- Bar Kemajuan -->
                                     <div class="bg-emerald-500 h-4 rounded-full" style="width: 80%;"></div>
-                                    <!-- Garisan Sasaran PPD -->
-                                    <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 94.20%;"></div>
-                                    <!-- Garisan Sasaran JPN -->
-                                    <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.25%;"></div>
+                                    <!-- Garisan Sasaran Kebangsaan & Negeri (sama pada 50%) -->
+                                    <div class="absolute top-0 bottom-0 w-1 bg-gradient-to-r from-blue-500 to-red-500" style="left: 50%;"></div> 
                                 </div>
                             </div>
 
                             <!-- Sasaran -->
-                            <div class="flex justify-between text-sm mt-4 pt-4 border-t border-gray-200">
+                            <div class="flex justify-around text-sm mt-4 pt-4 border-t border-gray-200">
                                 <div class="text-center">
-                                    <p class="font-semibold text-blue-600">Sasaran PPD</p>
-                                    <p class="text-lg font-bold text-blue-600">94.20%</p>
-                                    <p class="text-xs text-orange-600">(Perlu +14.20%)</p>
+                                    <p class="font-semibold text-blue-600">Sasaran Kebangsaan</p>
+                                    <p class="text-lg font-bold text-blue-600">50%</p>
                                 </div>
                                 <div class="text-center">
-                                    <p class="font-semibold text-red-600">Sasaran JPN</p>
-                                    <p class="text-lg font-bold text-red-600">94.25%</p>
-                                    <p class="text-xs text-red-600">(Perlu +14.25%)</p>
+                                    <p class="font-semibold text-red-600">Sasaran Negeri</p>
+                                    <p class="text-lg font-bold text-red-600">50%</p>
                                 </div>
                             </div>
+                             <!-- Status Pencapaian -->
+                             <p class="text-center text-sm font-medium text-green-600 mt-4">
+                                Tahniah! Sasaran Kebangsaan dan Negeri telah dilepasi sebanyak 30%.
+                            </p>
+                        </div>
+
+                        <!-- Kad KPI 2: Penguasaan Literasi Al-Quran -->
+                        <div class="bg-white p-6 rounded-lg shadow-md"> 
+                            <h3 class="text-lg font-semibold text-gray-800">Penguasaan Literasi Al-Quran Murid Tahun 6</h3>
+                            <p class="text-sm text-gray-500 mb-4">Peratus murid melepasi tahap minimum penguasaan.</p>
+                            
+                            <!-- Pencapaian Semasa (Contoh) -->
+                            <div class="mb-4">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-base font-medium text-purple-700">Pencapaian Semasa (SK Agama Miri)</span>
+                                    <span class="text-2xl font-bold text-purple-700">90%</span> <!-- Contoh -->
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-4 relative">
+                                    <!-- Bar Kemajuan -->
+                                    <div class="bg-purple-500 h-4 rounded-full" style="width: 90%;"></div> <!-- Contoh -->
+                                    <!-- Garisan Sasaran Negeri -->
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-red-500" style="left: 94.72%;"></div>
+                                    <!-- Garisan Sasaran Kebangsaan -->
+                                    <div class="absolute top-0 bottom-0 w-0.5 bg-blue-500" style="left: 98.25%;"></div> 
+                                </div>
+                            </div>
+
+                            <!-- Sasaran -->
+                            <div class="flex justify-around text-sm mt-4 pt-4 border-t border-gray-200">
+                                <div class="text-center">
+                                    <p class="font-semibold text-blue-600">Sasaran Kebangsaan</p>
+                                    <p class="text-lg font-bold text-blue-600">98.25%</p>
+                                    <p class="text-xs text-red-600">(Perlu +8.25%)</p> <!-- Contoh -->
+                                </div>
+                                <div class="text-center">
+                                    <p class="font-semibold text-red-600">Sasaran Negeri</p>
+                                    <p class="text-lg font-bold text-red-600">94.72%</p>
+                                     <p class="text-xs text-orange-600">(Perlu +4.72%)</p> <!-- Contoh -->
+                                </div>
+                            </div>
+                             <!-- Status Pencapaian (Contoh) -->
+                             <p class="text-center text-sm font-medium text-orange-600 mt-4">
+                                Usaha perlu ditingkatkan untuk mencapai sasaran Negeri dan Kebangsaan.
+                            </p>
                         </div>
 
                     </div>
